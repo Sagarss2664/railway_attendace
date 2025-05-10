@@ -4,7 +4,7 @@ import plotly.express as px
 from utils.data_processor import DataProcessor
 from auth.authentication import Authentication
 from st_aggrid import AgGrid, GridOptionsBuilder
-
+import os
 # Initialize authentication
 auth = Authentication()
 
