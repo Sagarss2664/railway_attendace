@@ -9,22 +9,15 @@ class DataProcessor:
         self.attendance = None
         self.merged_data = None
         
-    def load_data(self, employee_path, shifts_path, attendance_path):
-        """Load all Excel files into DataFrames"""
-        self.employees = pd.read_excel(employee_path)
-        self.shifts = pd.read_excel(shifts_path)
-        self.attendance = pd.read_excel(attendance_path)
-        
-        # Clean data
-        self._clean_data()
-        
-        # Merge data
-        self._merge_data()
-        
-        # Calculate metrics
-        self._calculate_metrics()
-        
-        return self.merged_data
+ @st.cache_data
+def load_data():
+    processor = DataProcessor()
+    data = processor.load_data(
+        employee_path=os.path.join(os.path.dirname(__file__), "data/employee.xlsx"),
+        shifts_path=os.path.join(os.path.dirname(__file__), "data/shifts.xlsx"),
+        attendance_path=os.path.join(os.path.dirname(__file__), "data/attendance.xlsx")
+    )
+    return processor, data
     
     def _clean_data(self):
         """Clean and preprocess data"""
